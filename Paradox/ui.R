@@ -111,7 +111,7 @@ dashboardPage(skin="black",
                             ),
                           column(4,offset=1,
                                  h3("Introduction:"),
-                                 box(width ="10.5%",background = "black",
+                                 box(width ="10.5%",background = "navy",
                                      "This dataset is about the SAT results by state in 2010. There 
                                      are 12 selected states with different teachers salaries, SAT 
                                      scores and SAT participation rates. The variable 'salary' is 

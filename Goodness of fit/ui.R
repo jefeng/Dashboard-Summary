@@ -71,7 +71,7 @@ dashboardPage(skin="black",
                             withMathJax(),
                             column(4,
                                    h3("Introduction:"),
-                                   box(width ="12.5%",background = "black",
+                                   box(width ="12.5%",background = "navy",
                                       "You can either see some randomly generated examples based on your choices on 
                                       the proportion in each category, the number of observations, the number of categories and the 
                                       number of simulation or test if you have real data"),
@@ -82,7 +82,7 @@ dashboardPage(skin="black",
                               
                                    radioButtons("random", "Proportion in each category", choices = c("Equiprobable Null", "Different Null Probabilities")),
                                    
-                                   sliderInput("n", "Sample Size:", min = 20, max = 1000, value = 50 ,
+                                   sliderInput("n", "Sample Size:", min = 200, max = 2000, value = 1100 ,
                                                step = 1),
                                    bsPopover("n", "", "Number of Observations", place="right"),
                                    
@@ -106,6 +106,7 @@ dashboardPage(skin="black",
                                                   bsPopover("values2","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints"), 
                                                   htmlOutput("text2", class="text-center"),
+                                                  br(),
                                                   plotOutput("plot2", width="90%", click = "plot_click"),
                                                   bsPopover("plot2","","For the number of simulation less than or equal to 50, click the points on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram with a red line (uniform density of p value under null)", place="right", options = list(container = "body"))
                           )),
@@ -117,6 +118,7 @@ dashboardPage(skin="black",
                                                   bsPopover("values1","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints2"), 
                                                   htmlOutput("text1", class="text-center"),
+                                                  br(),
                                                   plotOutput("plot1", width="90%", click = "plot_click"),
                                                   bsPopover("plot1","","For the number of simulation less than or equal to 50, click the points on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram with a red line (uniform density of p value under null)", place="right", options = list(container = "body"))
                                  

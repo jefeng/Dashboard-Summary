@@ -84,7 +84,7 @@ tabItem(tabName = "first",
           withMathJax(),
           column(4,
                  h3("Introduction:"),
-                 box(width =11,background = "black",
+                 box(width =11,background = "navy",
                      "In the app you will calculate the sample correlations (r) of all 
                      the X variables with the Y variable and pick out the X that has the highest r value.
                      You can then compare this r value with the r value associated with a randomly chosen X variable."),
