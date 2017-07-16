@@ -37,13 +37,13 @@ dashboardPage(skin="black",
                                                HTML(paste("X", tags$sub(1), sep=''),
                                                     " from N( Y, 1/\\(\\rho^2\\)), where 
                                                     \\(\\rho\\) is 
-                                                    the true population correlation"))),
+                                                    the true population correlation"),style = "color:inherit")),
                                    
                                    h4(helpText("Step 3: Independently pick a number of",
                                                HTML(paste("X", tags$sub(2), sep=''),
                                                     " from N( Y, 1/\\(\\rho^2\\)), where 
                                                     \\(\\rho\\) is 
-                                                    the true population correlation"))),
+                                                    the true population correlation"),style = "color:inherit")),
                                    
                                    h4(tags$div("Step 4: Continue until you have K variables: ",
                                                
