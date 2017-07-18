@@ -8,11 +8,12 @@ library(plotly)
 dashboardPage(skin="black",
               
               #Title
-              dashboardHeader(title="Simpson's paradox",titleWidth=450),
+              dashboardHeader(title="Simpson's paradox",titleWidth=260),
               
               #Sidebar
               dashboardSidebar(
-                width = 260,
+             
+                width = 235,
                 sidebarMenu(
                   menuItem("Overview and Instruction", tabName = "over", icon = icon("superpowers")),
                   menuItem("App", tabName = "first", icon = icon("usb"))
@@ -20,6 +21,13 @@ dashboardPage(skin="black",
               
               #Content within the tabs
               dashboardBody(
+                tags$head(
+                  tags$link(rel = "stylesheet", type = "text/css", href = "sidebar.css")
+                ),
+                
+               
+                
+                
                 tabItems(
                   
                   tabItem(tabName = "over",
@@ -92,11 +100,10 @@ dashboardPage(skin="black",
                                  br(),
                                  br(),
                                  br(),
-                                 
-                                sliderInput("integer", label = div(style='width:420px;', 
+                                 sliderInput("integer", label = div(style='width:440px;', 
                                                                             div(style='float:left; width:50%', 'No Paradox Effect'), 
                                                                             div(style='float:right;width:50%', 'Actual Paradox Effect')), 
-                                                                min = 0, max = 1, value = 1, width = '340px'),
+                                                                min = 0, max = 1, value = 1, width = '360px'),
                                  bsPopover("integer", "", "Move the slider to see how the Simpson Paradox effect changes. Default as actual paradox effect, which is the true SAT participation rates in the dataset. No paradox effect is the case that when all states have equal SAT participation rates", place="right", options = list(container = "body")),
                           
                                  

@@ -5,11 +5,11 @@ library(shinyBS)
 dashboardPage(skin="black",
               
               #Title
-              dashboardHeader(title="Chi-Square Goodness-fit-Test and Simulation ",titleWidth=450),
+              dashboardHeader(title="Chi-Square Goodness-fit-Test and Simulation ",titleWidth=550),
               
               #Sidebar
               dashboardSidebar(
-                width = 260,
+                width = 221,
                 sidebarMenu(
                   menuItem("Overview and Instruction", tabName = "over", icon = icon("github")),
                   menuItem("App", tabName = "first", icon = icon("volume-up"))
@@ -17,6 +17,11 @@ dashboardPage(skin="black",
               
               #Content within the tabs
               dashboardBody(
+                tags$head(
+                  
+                  tags$link(rel = "stylesheet", type = "text/css", href = "sidebar.css")
+                ),
+                
                 tabItems(
                   
                   tabItem(tabName = "over",
@@ -54,7 +59,8 @@ dashboardPage(skin="black",
                                    h4(tags$div("4. If the number of simulation you select is ",
                                                tags$strong("less than or equal to 50"), 
                                                "you can", tags$strong( "click any points"), "on the scatterplot 
-                                      to see the corresponding summary table as well as the p-value "))
+                                      to see the corresponding summary table as well as the p-value ")),
+                                   h4("5. Use the hover in the app to see further information ")
                                  
                                   
                                     

@@ -5,11 +5,11 @@ library(shinyBS)
 dashboardPage(skin="black",
               
               #Title
-              dashboardHeader(title="Overfitting",titleWidth=450),
+              dashboardHeader(title="Overfitting",titleWidth=235),
               
               #Sidebar
               dashboardSidebar(
-                width = 260,
+                width = 235,
                 sidebarMenu(
                   menuItem("Overview and Instruction", tabName = "over", icon = icon(" fa-hourglass-half")),
                   menuItem("App", tabName = "first", icon = icon("rss"))
@@ -17,6 +17,11 @@ dashboardPage(skin="black",
               
               #Content within the tabs
               dashboardBody(
+                
+                tags$head(
+                    tags$link(rel = "stylesheet", type = "text/css", href = "sidebar.css")
+                  ),
+                
                 tabItems(
                   
                   tabItem(tabName = "over",

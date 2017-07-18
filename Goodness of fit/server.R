@@ -91,8 +91,13 @@ function(input, output) {
     d<-plotdata()$x
     if (ss<=50)
     {
-      plot(d,xlab="Simulation Index", ylab="P Value",
-           main="P-value Distribution of Simulation", pch=18, cex=2, col="#1C2C5B")
+      ggplot(d, aes(x=index, y=pp))+
+        geom_point(colour="#1C2C5B", pch=18, size=5)+xlab("Simulation Index")+ ylab("P Value")+
+        ggtitle("P-value Distribution of Simulation" )+
+      theme(plot.title = element_text(hjust = 0.5,face="bold"),
+            axis.title.x = element_text( face="bold"),
+            axis.title.y = element_text(face="bold"))
+     
     }
     else {
       
@@ -109,8 +114,12 @@ function(input, output) {
     d<-plotdata2()
     if (ss<=50)
     {
-      plot(d,xlab="Simulation Index", ylab="P Value",
-           main="P-value Distribution of Simulation", pch=18, cex=2, col="#1C2C5B")
+      ggplot(d, aes(x=index, y=pp))+
+        geom_point(colour="#1C2C5B", pch=18, size=5)+xlab("Simulation Index")+ ylab("P Value")+
+        ggtitle("P-value Distribution of Simulation" )+
+        theme(plot.title = element_text(hjust = 0.5,face="bold"),
+              axis.title.x = element_text( face="bold"),
+              axis.title.y = element_text(face="bold"))
     }
     else {par(xpd=F)
       hist(d$pp,breaks=5,main="P-value Distribution of Simulation", xlab="P Value")
