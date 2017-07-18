@@ -31,8 +31,8 @@ dashboardPage(skin="black",
                             #I include everthing in a column though because this way there are margins and it looks better
                             column(12,
                                    h3("About:"),
-                                   h4("In this app you will explore overfitting. Overfitting occurs when a model is excessively complex, 
-                                      such as having too many parameters relative to the number of observations."),
+                                   h4("This app explores how you can become overconfident
+                                      when you are choosing the best explanatory variable from many choices"),
                                    
                                    h3("How the data are generated:"),
                                    withMathJax(),
@@ -61,7 +61,7 @@ dashboardPage(skin="black",
                                    
                                    h3("Instruction:"),
                                    h4("1. Move the sliders to change the values of sample size, true population correlation 
-                                      and the numbers of variables in the model"),
+                                      and the number of variables you are choosing from"),
                                    h4(tags$div("2. You need to ",
                                                
                                                tags$strong("first"), "click the ",
@@ -109,14 +109,15 @@ tabItem(tabName = "first",
                  
                  sliderInput("k", "The Number of Variables:", min = 1, max = 100 , value = 3 ,
                              step = 1),
-                 bsPopover("k", "", "Move the slider to change the number of variables in the model", place="right",options = list(container = "body")),
+                 bsPopover("k", "", "Move the slider to change the number of explanatory variables you are choosing from", place="right",options = list(container = "body")),
                  
-                 actionButton("plot", h5(tags$strong("Click here first to Plot"))), 
-                 bsPopover("plot", "", "There will be a density curve (black line) and a scatterplot (with a red regression line) shown once you click this button. The density plot is the residual between Y and estimated Y with the best picked X (The one that has the strongest correlation with Y) in the model and the scatterplot is plotting the replationship between the best picked X and Y", place="right",options = list(container = "body")),
+                 actionButton("plot", h5(tags$strong("Click to plot a new dataset"))), 
+                 bsPopover("plot", "", "The density plot (in black) is the plot of residuals between Y and estimated Y with the best picked X (The one that has the strongest correlation with Y) and the scatterplot represents the replationship between the best picked X and Y", place="right",options = list(container = "body")),
                  br(),
                  
-                 actionButton("validate", h5(tags$strong("Click here later to Validate")))),
-          bsPopover("validate", "", "There will be a new density curve (blue line) shown once you click this button. This new blue curve is the residual between Y and estimated Y with a randomly picked X in the model", place="right",options = list(container = "body")),
+                 conditionalPanel("input.plot != 0",
+                 actionButton("validate", h5(tags$strong("Click here later to Validate"))))),
+          bsPopover("validate", "", " Click to show density plot of residuals with a randomly picked X (in blue) ", place="right",options = list(container = "body")),
           
           column(8,
                  h3("Plot:"),
@@ -125,7 +126,7 @@ tabItem(tabName = "first",
                              cellArgs = list(style = "padding: 6px"),
                              plotOutput("plott"),
                              plotOutput("scatter"),
-                             bsPopover("plott", "","It seemed like the black curve changes when adding the blue curve, however, this is caused by the scale. In order to fit both the black and blue curves perfectly, the scale must be adjusted", place="bottom",options = list(container = "body"))
+                             bsPopover("plott", "","Black curve stays constant when you validate with a new X, but scale might change to fit two curves perfectly ", place="bottom",options = list(container = "body"))
                  )
                  
           ),
