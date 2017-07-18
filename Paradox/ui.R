@@ -43,22 +43,31 @@ dashboardPage(skin="black",
                                       ),
                                        
                                    h3("Background:"),
-                                   h4(tags$div("In 1973, the University of California-Berkeley was sued for sex discrimination. 
-                                               The numbers looked pretty incriminating: the graduate schools had just 
-                                               accepted 44% of male applicants but only 35% of female applicants. 
-                                               When researchers looked at the evidence, though, they uncovered something surprising:"
+                                   h4(tags$div("This app examines SAT scores in 12 states and how they are related to 
+                                               teachers' salaries in year 2010. The states are divided into 6 
+                                               with high SAT participation rates ( Maryland,
+                                                Massachusetts, New Jersey, Pennsylvania,
+                                                Rhode Island and California ), and 6 with 
+                                               low SAT participation rates ( Minnesota, 
+                                               Wisconsin, Kansas, Nebraska, North Dakota and Tennessee )
+
+                                               "
                                        ),
                                       br(),
-                               tags$img(src = "paradox.jpg", width = "476px", height = "48px", style="display: block; margin-left: auto; margin-right: auto;"),
-                                      br(),
-                                              tags$div("So Simpson's Paradox is defined as: "),
-                                                br(),  
-                                              tags$div("An observed association between two 
-                                                                   variables can",
-                                                       tags$strong(" change or even reverse direction"),  
-                                                              "when there is",
-                                                       tags$strong("another variable that interacts strongly"),
-                                                   "with both variables.")
+                                      
+                                              tags$div("1. When you just look at the states with high SAT
+                                                       participation rates ( blue circles ), you will see a 
+                                                       positive relationship. Similarly, if you just look 
+                                                       at the states with low SAT participation 
+                                                       rates ( orange circles ), there is also a positive relationship"),
+                                              br(),
+                                              tags$div("2. Looking at all 12 states together, you will see
+                                                       a negative relationship ( black line ) that illustrates 
+                                                       Simpson's paradox"),
+                                              br(),
+                                              tags$div("3. What would the data look like if the participation rates were 
+                                                       more equal?", tags$strong("Adjust the slider to see!"))
+                                              
                                       
                                                ),
                                    
