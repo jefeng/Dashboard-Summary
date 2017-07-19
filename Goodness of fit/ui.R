@@ -100,7 +100,7 @@ dashboardPage(skin="black",
                                    sliderInput("n3", "The number of Simulation:", min = 1, max = 1000, value = 5 ,
                                                step = 1),
                                    
-                                   bsPopover("n3", "", "For the first 50 simulations, you will see a P Value scatterplot; For the number of simulation greater than 50, you will see a P Value histogram.", place="right", options = list(container = "body")),
+                                   bsPopover("n3", "", "For the first 50 simulations, you will see a P Value scatterplot; For the number of simulation greater than 50, you will see a histogram of P-Values.", place="right", options = list(container = "body")),
                                    
                                  
                                    h4(tags$div(a(href="https://klosever.shinyapps.io/Version_1/", 
@@ -114,7 +114,7 @@ dashboardPage(skin="black",
                                                   htmlOutput("text2", class="text-center"),
                                                   br(),
                                                   plotOutput("plot2", width="90%", click = "plot_click"),
-                                                  bsPopover("plot2","","For the number of simulation less than or equal to 50, click the points on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram with a red line (uniform density of p value under null)", place="right", options = list(container = "body"))
+                                                  bsPopover("plot2","","For the number of simulation less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram of P Values. The red line denotes the uniform density of P Values under the null ", place="right", options = list(container = "body"))
                           )),
                           
                           column(7,
@@ -126,7 +126,7 @@ dashboardPage(skin="black",
                                                   htmlOutput("text1", class="text-center"),
                                                   br(),
                                                   plotOutput("plot1", width="90%", click = "plot_click"),
-                                                  bsPopover("plot1","","For the number of simulation less than or equal to 50, click the points on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram with a red line (uniform density of p value under null)", place="right", options = list(container = "body"))
+                                                  bsPopover("plot1","","For the number of simulation less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram of P Values. The red line denotes the uniform density of P Values under the null )", place="right", options = list(container = "body"))
                                  
                                  )
                           

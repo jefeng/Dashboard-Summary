@@ -10,17 +10,31 @@ shinyServer(function(input, output,session) {
     
     if(input$plot>0){
       y1<-rnorm(n,0,1)
-      if(p!=0){
+      if(p>0){
         x1=rnorm(n,y1,1/abs(p))
         x2=rnorm(n,y1,1/abs(p))
-      }else{
+      }
+      
+      else if(p<0){
+        x1=-rnorm(n,y1,1/abs(p))
+        x2=-rnorm(n,y1,1/abs(p))
+      }
+      
+      else{
         x1=rnorm(n,0,1 )
         x2=rnorm(n,0,1 )
       }
-      if(p!=0){
+      
+      if(p>0){
         for(i in 1:k)
           xmat[,i]=rnorm(n,y1,1/abs(p))
       }
+      
+      else if(p<0){
+        for(i in 1:k)
+          xmat[,i]=-rnorm(n,y1,1/abs(p))
+      }
+      
       else{
         for(i in 1:k)
           xmat[,i]=rnorm(n,0,1)
@@ -74,8 +88,8 @@ shinyServer(function(input, output,session) {
     y1blue<-bluey()
     kkblue=which.max(abs(R2))
     xmatblue=array(unlist(mydata[3]),dim=c(n,k)) 
-    mm2blue<-lm(y1blue~xmatblue[, k-kkblue+1]) # Randomly Chosen X
-    d1<-density(y1blue-mm2blue$fitted.values, adjust=2) # Randomly Chosen X)
+    mm2blue<-lm(y2~xmatblue[, sample(1:k, 1, replace=TRUE)]) # Randomly Chosen X
+    d1<-density(y2-mm2blue$fitted.values, adjust=2) # Randomly Chosen X)
     plot(range(d1$x,d2$x), range(d1$y,d2$y), type = "n", xlab = "Residual",
          ylab = "Density", main="")
     lines(d2, col="black",lwd=2)
@@ -126,11 +140,12 @@ shinyServer(function(input, output,session) {
     k=input$k
     best<-value11()
     mydata<-plotdata()
+    y2<-unlist(mydata[2])
     R2<-unlist(mydata[1])
     kkblue<-which.max(abs(R2))
     xmatblue=array(unlist(mydata[3]),dim=c(n,k))
     y1blue<-bluey()
-    random<-cor(y1blue,xmatblue[, k-kkblue+1])
+    random<-cor(y2,xmatblue[, sample(1:k, 1, replace=TRUE)])
     xx=cbind(best,random)
     xx=as.data.frame(xx)
     colnames(xx)=c("Sample Best Correlation","Sample Randomly Chosen Correlation")

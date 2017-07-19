@@ -73,19 +73,10 @@ dashboardPage(skin="black",
                                    
                                    
                                    h3("Instruction:"),
-                                   h4("1.Data come from 'SAT_2010' file from Package 'mdsr' embedded in R.  
-                                      12 states are selected and assigned into 2 groups ( High and Low ) based on the
-                                      percent of students taking SAT "),
-                                   h4(tags$div("2. The national level of SAT participation rate is 27%, so ",
-                                               tags$strong("'High'"), "group is States that have SAT Participation Rate",
-                                      
-                                            tags$strong("greater than 27%; "),tags$strong("'Low'"), 
-                                            "group is States that have SAT Participation Rate",
-                                            tags$strong("less than 27%"))),
-                               
-                                   h4("3. You must click the button first to see the plot of original/actual paradox effect"),
-                                   h4("4. Move the slider to see the change from actual paradox effect to no paradox effect"),
-                                   h4("5. Use the hover in the app to see further information.")
+                                   
+                                   h4("1. Click the button first to see the plot of original/actual paradox effect"),
+                                   h4("2. Move the slider to see paradox effect"),
+                                   h4("3. Use the hover in the app to see further information.")
                                  
                                   
                                     
