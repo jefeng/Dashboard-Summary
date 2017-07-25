@@ -1,5 +1,5 @@
 library(shiny)
-library(shinythemes)
+
 shinyServer(function(input, output,session) {
   
   plotdata<-reactive({
@@ -155,5 +155,7 @@ shinyServer(function(input, output,session) {
     value22()},
     align="c"
   )
+  
+ 
   
 })

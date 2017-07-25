@@ -1,14 +1,17 @@
 library(shiny)
-library(plotly)
-library(ggplot2)  
+library(shinydashboard)
+library(ggplot2)
+library(shinyBS)
 library(mdsr)
+library(plotly)
+
 shinyServer(function(input, output) {
   
   
   
   output$SAT1<-renderTable(
     
-    SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42), c(1,4,8,9)]
+    SAT_2010[c(5,20,21,30,38,39,16,23,27,34,42,49), c(1,4,8,9)]
     
   )
   
@@ -17,7 +20,7 @@ shinyServer(function(input, output) {
     
     output$plot2<-renderPlotly({
       
-      SAT_2010_plot2<-SAT_2010[c(20,21,30,38,39,5,23,49,16,27,34,42),]%>%
+      SAT_2010_plot2<-SAT_2010[c(5,20,21,30,38,39,16,23,27,34,42,49),]%>%
         mutate(SAT_grp=ifelse(sat_pct<=27, "Low SAT Participation State", "High SAT Participation State"))
       
       integer=8714-input$integer*8714
@@ -44,7 +47,7 @@ shinyServer(function(input, output) {
       
       p=ggplot(data=SAT_2010_plot2,aes(salary,total, col=SAT_grp, label=state
       ))+geom_smooth(method="lm", se=F)+
-        labs(x="Teachers'Salaries", y="SAT Scores")+geom_point(aes(text=paste("State:", state, "\n",
+        labs(x="Teachers' Salaries", y="SAT Scores")+geom_point(aes(text=paste("State:", state, "\n",
                                                                               "New Salary:", salary,"\n",
                                                                               'New SAT Score:', total,"\n",
                                                                               '', SAT_grp)),size = 3, pch=21)
@@ -53,8 +56,14 @@ shinyServer(function(input, output) {
       
       pp=p + geom_smooth(method = "lm",se = F, color = "black", linetype = "longdash",lwd=1.5)+
         scale_colour_manual(name='',values=c('Low SAT Participation State'='orange','High SAT Participation State'='blue',
-                                             'black'='black'))+ theme(legend.position="none")
-      ggplotly(pp,tooltip =  "text")
+                                             'black'='black'))+theme_bw()+
+        theme(axis.title.x = element_text( face="bold"),
+              axis.title.y = element_text(face="bold"),
+              panel.background = element_blank(),
+              legend.position="none",
+              axis.line = element_line(color = 'black'))
+      
+      ggplotly(pp,tooltip =  "text")%>% config(displayModeBar = F) 
       
       
       

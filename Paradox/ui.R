@@ -5,6 +5,7 @@ library(shinyBS)
 library(mdsr)
 library(plotly)
 
+
 dashboardPage(skin="black",
               
               #Title
@@ -41,15 +42,16 @@ dashboardPage(skin="black",
                                       Simpson's paradox is a phenomenon in which a trend appears in different 
                                       groups of data but disappears or reverses when these groups are combined."
                                       ),
+                                   br(),
                                        
                                    h3("Background:"),
                                    h4(tags$div("This app examines SAT scores in 12 states and how they are related to 
                                                teachers' salaries in year 2010. The states are divided into 6 
-                                               with high SAT participation rates ( Maryland,
-                                                Massachusetts, New Jersey, Pennsylvania,
-                                                Rhode Island and California ), and 6 with 
-                                               low SAT participation rates ( Minnesota, 
-                                               Wisconsin, Kansas, Nebraska, North Dakota and Tennessee )
+                                               with high SAT participation rates ( California, Maryland,
+                                                Massachusetts, New Jersey, Pennsylvania and
+                                                Rhode Island ), and 6 with 
+                                               low SAT participation rates ( Kansas, Minnesota, 
+                                               Nebraska, North Dakota, Tennessee and Wisconsin )
 
                                                "
                                        ),
@@ -62,7 +64,8 @@ dashboardPage(skin="black",
                                                        rates ( orange circles ), there is also a positive relationship"),
                                               br(),
                                               tags$div("2. Looking at all 12 states together, you will see
-                                                       a negative relationship ( black line ) that illustrates 
+                                                       a negative relationship ( black line ). The difference 
+                                                       between the black line and the orange and blue lines illustrates 
                                                        Simpson's paradox"),
                                               br(),
                                               tags$div("3. What would the data look like if the participation rates were 
@@ -70,13 +73,34 @@ dashboardPage(skin="black",
                                               
                                       
                                                ),
+                                   br(),
                                    
-                                   
-                                   h3("Instruction:"),
+                                   h3("Instructions for use:"),
                                    
                                    h4("1. Click the button first to see the plot of original/actual paradox effect"),
-                                   h4("2. Move the slider to see paradox effect"),
-                                   h4("3. Use the hover in the app to see further information.")
+                                   h4("2. Move the slider to see how making the participation rates more equal lessen
+                                      the paradox effect"),
+                                   br(),
+                                   
+                                   h3("Acknowledgement and Credit:"),
+                                  
+                                   h4(tags$div(tags$strong("ggplot2"),":", "Wickham H (2016).", tags$i("ggplot2: Elegant Graphics for Data Analysis."), "Springer-Verlag New
+                                   York. ISBN 978-3-319-24277-4, ", tags$a(href="http://ggplot2.org", "http://ggplot2.org",style = "color:blue"))),
+                                   
+                                   h4(tags$div(tags$strong("mdsr"),":", "Baumer B, Horton N and Kaplan D (2016).", tags$i("devtools: mdsr: Complement to 'Modern Data Science with
+                                   R'."), "R package version 0.1.3, ", tags$a(href="https://CRAN.R-project.org/package=mdsr", "https://CRAN.R-project.org/package=mdsr",style = "color:blue"))),
+                                   
+                                   h4(tags$div(tags$strong("plotly"),":", "Sievert C, Parmer C, Hocking T, Chamberlain S, Ram K, Corvellec M and Despouy P (2017).", tags$i("plotly: Create Interactive Web Graphics via 'plotly.js'."), "
+                                   R package version 4.6.0, ", tags$a(href="https://CRAN.R-project.org/package=plotly", "https://CRAN.R-project.org/package=plotly",style = "color:blue"))),
+                                   
+                                   
+                                   h4(tags$div(tags$strong("shiny"),":", "Chang W, Cheng J, Allaire J, Xie Y and McPherson J (2017).", tags$i("shiny: Web Application
+                                                                                                                                              Framework for R."), " R package version 1.0.3, ", tags$a(href="https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny",style = "color:blue"))),
+                                   h4(tags$div(tags$strong("shinyBS"),":", "Bailey E (2015).", tags$i("shinyBS: Twitter Bootstrap Components for Shiny."),
+                                               " R package version 0.61, ", tags$a(href="https://CRAN.R-project.org/package=shinyBS", "https://CRAN.R-project.org/package=shinyBS",style = "color:blue"))),
+                                   h4(tags$div(tags$strong("shinydashboard"),":", "Chang W and Borges Ribeiro B (2017).", tags$i("shinydashboard: Create Dashboards with 'Shiny'."), 
+                                               " R package version 0.6.1, ", tags$a(href="https://CRAN.R-project.org/package=shinydashboard", "https://CRAN.R-project.org/package=shinydashboard",style = "color:blue")))
+                                   
                                  
                                   
                                     
@@ -92,7 +116,7 @@ dashboardPage(skin="black",
                             
                             
                             
-                          column(6,offset = 1/2,
+                          column(6,
                                  h3("Plot:"),
                                  column(2, offset=1, actionButton("newplot2", h5(tags$strong("Click here first to show the plot")))),
                                  bsPopover("newplot2", "", "This plot shows you the original (actual) paradox effect", place="right",options = list(container = "body")),
@@ -110,7 +134,7 @@ dashboardPage(skin="black",
                           
                           conditionalPanel("input.newplot2 != 0",
                                                   plotlyOutput("plot2"),
-                                           bsPopover("plot2", "", "Hover the point to see more details", placement = "right"),
+                                           bsPopover("plot2", "", "Hover over the point to see more details", placement = "right"),
                                            img(src="jinglin.jpg", width="80%")
                                            )
                           
@@ -120,14 +144,14 @@ dashboardPage(skin="black",
                                  h3("Introduction:"),
                                  box(width ="10.5%",background = "navy",
                                      "This dataset is about the SAT results by state in 2010. There 
-                                     are 12 selected states with different teachers salaries, SAT 
+                                     are 12 selected states with different average teachers' salaries, SAT 
                                      scores and SAT participation rates. The variable 'salary' is 
-                                     the average teachers salaries in US dollar; The variable 'total' 
-                                     is the state average SAT score; The variable 'sat pct' is 
+                                     the average teachers' salaries in US dollar ; The variable 'total' 
+                                     is the state average SAT score ; The variable 'sat pct' is 
                                      the percent of students taking SAT in that state."),
                                  
                                  #tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
-                                 tableOutput("SAT1"),
+                                 img(src="table.jpg", width = "306px", height = "400px"),
                                  
                                  h4(tags$div(
                                    tags$strong("Low Group"),

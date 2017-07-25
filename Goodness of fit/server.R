@@ -1,5 +1,4 @@
 library(shiny)
-library(shinythemes)
 library(ggplot2)
 function(input, output) {
   
@@ -84,6 +83,8 @@ function(input, output) {
     data
   })
   
+  
+  
   # For Random
   output$plot1 <- renderPlot({
     ss= input$n3
@@ -93,10 +94,13 @@ function(input, output) {
     {
       ggplot(d, aes(x=index, y=pp))+
         geom_point(colour="#1C2C5B", pch=18, size=5)+xlab("Simulation Number")+ ylab("P Value")+
-        ggtitle("P-value Distribution of Simulation" )+
+      
+        ggtitle("P-value Distribution from the simulations" )+
+        theme_bw()+
       theme(plot.title = element_text(hjust = 0.5,face="bold"),
             axis.title.x = element_text( face="bold"),
-            axis.title.y = element_text(face="bold"))
+            axis.title.y = element_text(face="bold"),
+            panel.background = element_blank())+ theme(axis.line = element_line(color = 'black'))
      
     }
     else {
@@ -116,10 +120,13 @@ function(input, output) {
     {
       ggplot(d, aes(x=index, y=pp))+
         geom_point(colour="#1C2C5B", pch=18, size=5)+xlab("Simulation Number")+ ylab("P Value")+
-        ggtitle("P-value Distribution of Simulation" )+
+        ggtitle("P-value Distribution from the simulations" )+
+        theme_bw()+
         theme(plot.title = element_text(hjust = 0.5,face="bold"),
               axis.title.x = element_text( face="bold"),
-              axis.title.y = element_text(face="bold"))
+              axis.title.y = element_text(face="bold"),
+              panel.background = element_blank())+ theme(axis.line = element_line(color = 'black'))
+      
     }
     else {par(xpd=F)
       hist(d$pp,breaks=5,main="P-value Distribution of Simulation", xlab="P Value")

@@ -1,6 +1,5 @@
 library(shiny)
 library(shinydashboard)
-library(ggplot2)
 library(shinyBS)
 dashboardPage(skin="black",
               
@@ -33,33 +32,20 @@ dashboardPage(skin="black",
                                    h3("About:"),
                                    h4("This app explores how you can become overconfident
                                       when you are choosing the best explanatory variable from many choices"),
+                                   br(),
                                    
-                                   h3("How the data are generated:"),
+                                   h3("Understanding the overfitting effect:"),
                                    withMathJax(),
-                                   h4("Step 1: Pick a number of Y from N(0,1) "),
-                                   
-                                   h4(helpText("Step 2: pick a number of",
-                                               HTML(paste("X", tags$sub(1), sep=''),
-                                                    " from N( Y, 1/\\(\\rho^2\\)), where 
-                                                    \\(\\rho\\) is 
-                                                    the true population correlation"),style = "color:inherit")),
-                                   
-                                   h4(helpText("Step 3: Independently pick a number of",
-                                               HTML(paste("X", tags$sub(2), sep=''),
-                                                    " from N( Y, 1/\\(\\rho^2\\)), where 
-                                                    \\(\\rho\\) is 
-                                                    the true population correlation"),style = "color:inherit")),
-                                   
-                                   h4(tags$div("Step 4: Continue until you have K variables: ",
-                                               
-                                               HTML(paste("X", tags$sub(1), sep='')),
-                                               "to", HTML(paste("X", tags$sub("k"), sep='')))),
-                                   
-                                   h4("Step 5: Repeat the above n times"),
-                                  
+                                   h4(" 1. A reasearcher looks at many explanatory variables
+                                      and picks the one that predicts Y the best"),
                                   
                                    
-                                   h3("Instruction:"),
+                                   h4(" 2. But if we draw another sample randomly from the 
+                                      same model, it will not fit nearly as well"),
+                                  
+                                  br(),
+                                   
+                                   h3("Instructions for use:"),
                                    h4("1. Move the sliders to change the values of sample size, true population correlation 
                                       and the number of variables you are choosing from"),
                                    h4(tags$div("2. You need to ",
@@ -73,7 +59,16 @@ dashboardPage(skin="black",
                                    h4(tags$div("3. If you want to generate a new plot with the same slider values, just click ",
                                                tags$strong("plot button"),
                                                "again")),
-                                   h4("4. Use the hover in the app to see further information"  )
+                                  
+                                  br(),
+                                  h3("Acknowledgement and Credit:"),
+                                 h4(tags$div(tags$strong("shiny"),":", "Chang W, Cheng J, Allaire J, Xie Y and McPherson J (2017).", tags$i("shiny: Web Application
+                                                                                                                                             Framework for R."), " R package version 1.0.3, ", tags$a(href="https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny",style = "color:blue"))),
+                                  h4(tags$div(tags$strong("shinyBS"),":", "Bailey E (2015).", tags$i("shinyBS: Twitter Bootstrap Components for Shiny."),
+                                              " R package version 0.61, ", tags$a(href="https://CRAN.R-project.org/package=shinyBS", "https://CRAN.R-project.org/package=shinyBS",style = "color:blue"))),
+                                  h4(tags$div(tags$strong("shinydashboard"),":", "Chang W and Borges Ribeiro B (2017).", tags$i("shinydashboard: Create Dashboards with 'Shiny'."), 
+                                              " R package version 0.6.1, ", tags$a(href="https://CRAN.R-project.org/package=shinydashboard", "https://CRAN.R-project.org/package=shinydashboard",style = "color:blue")))
+                                  
                                    
                                    
                                    
@@ -89,9 +84,9 @@ tabItem(tabName = "first",
           withMathJax(),
           column(4,
                  h3("Introduction:"),
-                 box(width =11,background = "navy",
-                     "In the app you will calculate the sample correlations (r) of all 
-                     the X variables with the Y variable and pick out the X that has the highest r value.
+                 box(width ="10.5%",background = "navy",
+                     "In the app you will calculate sample correlations (r) of all 
+                     X variables with Y variable and pick out the X that has the highest r with Y.
                      You can then compare this r value with the r value associated with a randomly chosen X variable."),
                  
                  tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
@@ -112,7 +107,7 @@ tabItem(tabName = "first",
                  bsPopover("k", "", "Move the slider to change the number of explanatory variables you are choosing from", place="right",options = list(container = "body")),
                  
                  actionButton("plot", h5(tags$strong("Click to plot a new dataset"))), 
-                 bsPopover("plot", "", "The density plot (in black) is the plot of residuals between Y and estimated Y with the best picked X (The one that has the strongest correlation with Y) and the scatterplot represents the replationship between the best picked X and Y", place="right",options = list(container = "body")),
+                 bsPopover("plot", "", "The density plot (in black) is the plot of residuals using the best picked X (The one that has the strongest correlation with Y). The scatterplot on the right shows the replationship between the best picked X and Y", place="right",options = list(container = "body")),
                  br(),
                  
                  conditionalPanel("input.plot != 0",
@@ -131,12 +126,22 @@ tabItem(tabName = "first",
                  
           ),
           column(7, offset=1, tableOutput("choose"),
-                 bsPopover("choose", "", "Compared the sample best correlation and randomly chosen correlation (In absolute value terms)", place="bottom",options = list(container = "body"))
-                 
+                 bsPopover("choose", "", "Compared the sample best correlation and randomly chosen correlation (In absolute value terms)", place="bottom",options = list(container = "body")),
+          
+          
+          conditionalPanel("input.validate != 0",
+          
+          h3("Challenge:"),
+          
+          
+          h4("How does the overfitting effect depend on 
+               sample sizes, true population correlation and 
+             the number of variables you are choosing from ?")
+          
           )
           
           
-          
+          )
           
           
           

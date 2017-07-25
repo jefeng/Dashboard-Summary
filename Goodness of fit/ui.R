@@ -31,17 +31,14 @@ dashboardPage(skin="black",
                             #I include everthing in a column though because this way there are margins and it looks better
                             column(12,
                                    h3("About:"),
-                                   h4("In this app you will explore Chi-Square Goodness-fit-Test and Simulation.
-                                        The test is applied when you have categorical variables from a population. 
-                                      It is used to determine whether sample data are consistent with a hypothesized distribution." ),
+                                   h4("In this app you will explore Chi-Square Goodness-fit-Test with simulations.
+                                        The test is applied when you have categorical variables from a population." 
+                                     ),
                                    
-                                   h3("Background:"),
+                                   
                                    h4(tags$div("When an analyst attempts to fit a statistical model to observed data, he or she may wonder
                                   how well the model actually reflects the data. How close are the observed values to those which would be expected under the fitted model? 
-                                  One statistical test that addresses this issue is the chi-square goodness of fit test. 
-                                      This test is commonly used to test association of variables in contingency tables, 
-                                      where the assumed model of independence is evaluated against 
-                                      the observed data. In general, the chi-square test statistic is of the form:"
+                                  One statistical test that addresses this issue is the chi-square goodness of fit test. In general, the chi-square test statistic is of the form:"
                                        ),
                                       br(),
                                tags$img(src = "fit.jpg", width = "384px", height = "86px", style="display: block; margin-left: auto; margin-right: auto;"),
@@ -50,17 +47,34 @@ dashboardPage(skin="black",
                                                values are not close and the model is a poor fit to the data. "
                                       
                                                )),
+                                   br(),
                                    
-                                   
-                                   h3("Instruction:"),
+                                   h3("Instructions for use:"),
                                    h4("1. Select one of the scenarios in terms of proportion in each category"),
                                    h4("2. Move the sliders to change the values of number of observations, number of categories and number of simulations"),
-                                   h4("3. Click the link below 'simulation' if you have real data to test"),
-                                   h4(tags$div("4. If the number of simulation you select is ",
-                                               tags$strong("less than or equal to 50"), 
-                                               "you can", tags$strong( "click any points"), "on the scatterplot 
-                                      to see the corresponding summary table as well as the p-value ")),
-                                   h4("5. Use the hover in the app to see further information ")
+                                   h4(tags$div("3. Click the ", tags$strong("link below ' The number of Simulations ' slider "),
+                                   "if you have real data to test")),
+                                   h4(tags$div("4. A p-value is calculated and plotted for each simulation. You 
+                                               can click a p-value on the plot to see the summary table for that 
+                                               dataset")),
+                                   h4("5. When there are more than 50 simulations, only a histogram of p-values is shown"),
+                                    
+                                   br(),
+                               
+                                   h3("Acknowledgement and Credit:"),
+                                   h4(tags$div(tags$strong("ggplot2"),":", "Wickham H (2016).", tags$i("ggplot2: Elegant Graphics for Data Analysis."), "Springer-Verlag New
+                                   York. ISBN 978-3-319-24277-4, ", tags$a(href="http://ggplot2.org", "http://ggplot2.org",style = "color:blue"))),
+                                   h4(tags$div(tags$strong("shiny"),":", "Chang W, Cheng J, Allaire J, Xie Y and McPherson J (2017).", tags$i("shiny: Web Application
+                                   Framework for R."), " R package version 1.0.3, ", tags$a(href="https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny",style = "color:blue"))),
+                                   h4(tags$div(tags$strong("shinyBS"),":", "Bailey E (2015).", tags$i("shinyBS: Twitter Bootstrap Components for Shiny."),
+                                               " R package version 0.61, ", tags$a(href="https://CRAN.R-project.org/package=shinyBS", "https://CRAN.R-project.org/package=shinyBS",style = "color:blue"))),
+                                   h4(tags$div(tags$strong("shinydashboard"),":", "Chang W and Borges Ribeiro B (2017).", tags$i("shinydashboard: Create Dashboards with 'Shiny'."), 
+                                               " R package version 0.6.1, ", tags$a(href="https://CRAN.R-project.org/package=shinydashboard", "https://CRAN.R-project.org/package=shinydashboard",style = "color:blue"))),
+                                   h4(tags$div(tags$strong("shinyjs"),":", "Attali D (2016).", tags$i("shinyjs: Easily Improve the User Experience of Your Shiny Apps in
+                                   Seconds."), " R package version 0.9, ", tags$a(href="https://CRAN.R-project.org/package=shinyjs", "https://CRAN.R-project.org/package=shinyjs",style = "color:blue")))
+                               
+                               
+                               
                                  
                                   
                                     
@@ -77,10 +91,8 @@ dashboardPage(skin="black",
                             withMathJax(),
                             column(4,
                                    h3("Introduction:"),
-                                   box(width ="12.5%",background = "navy",
-                                      "You can either see some randomly generated examples based on your choices on 
-                                      the proportion in each category, the number of observations, the number of categories and the 
-                                      number of simulation or test if you have real data"),
+                                   box(width ="10.5%",background = "navy",
+                                      "You can either simulate example data or test if you have real data"),
                                    
                                    tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
                                    tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #1C2C5B}")),
@@ -97,13 +109,13 @@ dashboardPage(skin="black",
                                    
                                    bsPopover("n2", "", "Number of Categories", place="right"),
                                    
-                                   sliderInput("n3", "The number of Simulation:", min = 1, max = 1000, value = 5 ,
+                                   sliderInput("n3", "The number of Simulations:", min = 1, max = 1000, value = 5 ,
                                                step = 1),
                                    
-                                   bsPopover("n3", "", "For the first 50 simulations, you will see a P Value scatterplot; For the number of simulation greater than 50, you will see a histogram of P-Values.", place="right", options = list(container = "body")),
+                                   bsPopover("n3", "", "For the first 50 simulations, you will see a p-value scatterplot; For the number of simulations greater than 50, you will see a histogram of p-values.", place="right", options = list(container = "body")),
                                    
                                  
-                                   h4(tags$div(a(href="https://klosever.shinyapps.io/Version_1/", 
+                                   h4(tags$div(a(href="http://shiny.science.psu.edu/jpf5265/Testing/", 
                                               tags$strong("Click here if you have real data to test ",style = "color:#1C2C5B"))))),
                           column(7,
                                  h3("Table and Plot:"),
@@ -111,10 +123,11 @@ dashboardPage(skin="black",
                                                    tableOutput("values2"),
                                                   bsPopover("values2","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints"), 
+                                                  bsPopover("plot_clickedpoints","","An example of a summary table of sample values", placement = "right", options = list(container = "body")),
                                                   htmlOutput("text2", class="text-center"),
                                                   br(),
-                                                  plotOutput("plot2", width="90%", click = "plot_click"),
-                                                  bsPopover("plot2","","For the number of simulation less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram of P Values. The red line denotes the uniform density of P Values under the null ", place="right", options = list(container = "body"))
+                                                  plotOutput("plot2", width='90%', click = "plot_click"),
+                                                  bsPopover("plot2","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null ", place="right", options = list(container = "body"))
                           )),
                           
                           column(7,
@@ -123,10 +136,11 @@ dashboardPage(skin="black",
                                                   tableOutput("values1"),
                                                   bsPopover("values1","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints2"), 
+                                                  bsPopover("plot_clickedpoints2","","An example of a summary table of sample values", placement = "right", options = list(container = "body")),
                                                   htmlOutput("text1", class="text-center"),
                                                   br(),
                                                   plotOutput("plot1", width="90%", click = "plot_click"),
-                                                  bsPopover("plot1","","For the number of simulation less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulation greater than 50, you will see a histogram of P Values. The red line denotes the uniform density of P Values under the null )", place="right", options = list(container = "body"))
+                                                  bsPopover("plot1","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null )", place="right", options = list(container = "body"))
                                  
                                  )
                           
