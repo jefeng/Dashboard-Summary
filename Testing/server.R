@@ -129,6 +129,7 @@ shinyServer(function(input, output,session) {
   
   
   xmaxInput <- reactive({
+    
     qchisq(0.999,df=dfInput())
   })
   
@@ -320,19 +321,36 @@ shinyServer(function(input, output,session) {
       n <- length(chisqSims)
       latest <- chisqSims[n]
       p.value <- pchisq(chisqSims, length(observed)-1, lower.tail=FALSE)
-      hist(p.value,breaks=10,main="P-value Distribution Histogram from the simulations", xlab="p-value", xlim=c(0,1))
+      hist(p.value,breaks=10,main="P-value Distribution Histogram from the simulations", xlab="p-value", xlim=c(0,1),font.lab=2)
       
     })  
   
   output$chisqCurve <- renderPlot({
-    obs <- obschisqInput()
-    degFreedom <- dfInput()
-    chisqGraph(bound=obs,region="above",df=degFreedom,xlab="Chi-Square Values",
-               graph=TRUE)
-    abline(v=obs)
-    abline(v=0)
+   
+    sim<-input$sims
     
-    lines(chisqDensities(),col="#D95F02",lwd=3)
+    if(sim<=5){
+      obs <- obschisqInput()
+      degFreedom <- dfInput()
+      chisqGraph(bound=obs,region="above",df=degFreedom,xlab="Chi-Square Values",
+                 graph=TRUE)
+      abline(v=obs)
+      abline(v=0)
+    }
+    
+    else{
+      obs <- obschisqInput()
+      degFreedom <- dfInput()
+      
+      chisqGraph(bound=obs,region="above",df=degFreedom,xlab="Chi-Square Values",
+                 graph=TRUE)
+      abline(v=obs)
+      abline(v=0)
+      lines(chisqDensities(),col="#D95F02",lwd=3)
+      
+    }
+    
+    
     
   })
   

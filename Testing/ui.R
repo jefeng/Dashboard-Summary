@@ -59,11 +59,11 @@ dashboardPage(skin="black",
                                               textInput("names",h4(tags$strong("Level Names")),
                                                         ""),
                                               br(),
-                                              br(),
+                                              
                                               textInput("nulls",h4(tags$strong("Null Probabilities")),
                                                         ""),
                                               br(),
-                                              br(),
+                                             
                                               textInput("obs",h4(tags$strong("Observed Counts")),
                                                         ""),
                                               br(), 

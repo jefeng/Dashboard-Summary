@@ -7,6 +7,7 @@ function(input, output) {
     num_of_samples = input$n
     nn= input$n2
     ss= input$n3
+    v$click1 <-NULL
     mytable<-list(0)
     for(i in 1:ss){
       x <- sample(1:nn,num_of_samples,replace=T)
@@ -20,6 +21,7 @@ function(input, output) {
     num_of_samples = input$n
     nn= input$n2
     ss= input$n3
+    v$click1 <-NULL
     mytable<-list(0)
     for(i in 1:ss){
       x <- sample(1:nn,num_of_samples,replace=T)
@@ -33,6 +35,7 @@ function(input, output) {
     num_of_samples = input$n
     nn= input$n2
     ss= input$n3
+    v$click1 <-NULL
     pp=numeric(0)
     xx<-firstdata()
     for(i in 1:ss){
@@ -61,6 +64,7 @@ function(input, output) {
     num_of_samples = input$n
     nn= input$n2
     ss= input$n3
+    v$click1 <-NULL
     pp=numeric(0)
     xx<-firstdata2()
     for(i in 1:ss){
@@ -83,6 +87,13 @@ function(input, output) {
     data
   })
   
+  #click_event
+  v <- reactiveValues(click1 = NULL)
+  
+  observeEvent(input$plot_click, {
+    v$click1 <- input$plot_click
+  })
+  
   
   
   # For Random
@@ -92,21 +103,15 @@ function(input, output) {
     d<-plotdata()$x
     if (ss<=50)
     {
-      ggplot(d, aes(x=index, y=pp))+
-        geom_point(colour="#1C2C5B", pch=18, size=5)+xlab("Simulation Number")+ ylab("P Value")+
+      plot(d$index,d$pp,xlab = "Simulation Number",
+           ylab = "P-value", main="P-value Distribution from the simulations", pch = 20,col="#1C2C5B", cex=2.5,font.lab=2 )
+      if (!is.null(v$click1$x))
+        points(x=round(v$click1$x),y=d$pp[round(v$click1$x)],col="#FF4500",pch = 20, cex=3)
       
-        ggtitle("P-value Distribution from the simulations" )+
-        theme_bw()+
-      theme(plot.title = element_text(hjust = 0.5,face="bold"),
-            axis.title.x = element_text( face="bold"),
-            axis.title.y = element_text(face="bold"),
-            panel.background = element_blank())+ theme(axis.line = element_line(color = 'black'))
-     
     }
     else {
-      
       par(xpd=F)
-      hist(d$pp,breaks=5,main="P-value Distribution of Simulation", xlab="P Value")
+      hist(d$pp,breaks=5,main="P-value Distribution from the simulations", xlab="P-value",font.lab=2 )
       abline(h = ss/5, col = "red")}
   })
   
@@ -118,18 +123,14 @@ function(input, output) {
     d<-plotdata2()
     if (ss<=50)
     {
-      ggplot(d, aes(x=index, y=pp))+
-        geom_point(colour="#1C2C5B", pch=18, size=5)+xlab("Simulation Number")+ ylab("P Value")+
-        ggtitle("P-value Distribution from the simulations" )+
-        theme_bw()+
-        theme(plot.title = element_text(hjust = 0.5,face="bold"),
-              axis.title.x = element_text( face="bold"),
-              axis.title.y = element_text(face="bold"),
-              panel.background = element_blank())+ theme(axis.line = element_line(color = 'black'))
+      plot(d$index,d$pp,xlab = "Simulation Number",
+           ylab = "P-value", main="P-value Distribution from the simulations", pch = 20,col="#1C2C5B", cex=2.5,font.lab=2 )
+      if (!is.null(v$click1$x))
+        points(x=round(v$click1$x),y=d$pp[round(v$click1$x)],col="#FF4500",pch = 20, cex=3)
       
     }
     else {par(xpd=F)
-      hist(d$pp,breaks=5,main="P-value Distribution of Simulation", xlab="P Value")
+      hist(d$pp,breaks=5,main="P-value Distribution from the simulations", xlab="P-value",font.lab=2 )
       abline(h = ss/5, col = "red")}
   })
   
@@ -138,16 +139,17 @@ function(input, output) {
   clickedpoints1<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata()  
     
     data<-plotdata()$x
-    res <- nearPoints(data, input$plot_click, "index", "pp")
-    if (nrow(res) == 0)
+    if (is.null(v$click1)||ss>50)
       return()
-    i<-res$index
-    pvalue<-round(res$pp,3)
+    i<-round(v$click1$x)
+    pvalue<-round(data$pp[round(v$click1$x)],3)
+    
     x1<-unlist(mytable[i])
     # gen<-runif(input$n2)
     trueProp = plotdata()$y/sum(plotdata()$y)
@@ -169,17 +171,18 @@ function(input, output) {
   clickedpoints2<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata2()  
     
     data<-plotdata2()
-    res <- nearPoints(data, input$plot_click, "index", "pp")
-    if (nrow(res) == 0)
+    if (is.null(v$click1)||ss>50)
       return()
-    i<-res$index
-    pvalue<-round(res$pp,3)
+    i<-round(v$click1$x)
+    pvalue<-round(data$pp[round(v$click1$x)],3)
     x1<-unlist(mytable[i])
+    
     xx=cbind(paste0(LETTERS[1:nn]),table(x1),round(rep(num_of_samples/nn,nn),2),
              round(table(x1)/sum(table(x1)),2), 
              round(round(rep(num_of_samples/nn,nn),2)/sum(round(rep(num_of_samples/nn,nn),2)),3))
@@ -194,16 +197,17 @@ function(input, output) {
   clickedpoints21<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata()  
     
     data<-plotdata()$x
-    res <- nearPoints(data, input$plot_click, "index", "pp")
-    if (nrow(res) == 0)
+    if (is.null(v$click1)||ss>50)
       return()
-    i<-res$index
-    pvalue<-round(res$pp,3)
+    i<-round(v$click1$x)
+    pvalue<-round(data$pp[round(v$click1$x)],3)
+    
     paste("P-value =  ",as.character(pvalue) )
     
   })
@@ -212,16 +216,17 @@ function(input, output) {
   clickedpoints22<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata2()  
     
     data<-plotdata2()
-    res <- nearPoints(data, input$plot_click, "index", "pp")
-    if (nrow(res) == 0)
+    if (is.null(v$click1)||ss>50)
       return()
-    i<-res$index
-    pvalue<-round(res$pp,3)
+    i<-round(v$click1$x)
+    pvalue<-round(data$pp[round(v$click1$x)],3)
+    
     paste("P-value =  ",as.character(pvalue) )
     
   })
