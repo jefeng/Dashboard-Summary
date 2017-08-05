@@ -84,23 +84,9 @@ dashboardPage(skin="black",
                                    
                                    h3("Acknowledgement and Credit:"),
                                   
-                                   h4(tags$div(tags$strong("ggplot2"),":", "Wickham H (2016).", tags$i("ggplot2: Elegant Graphics for Data Analysis."), "Springer-Verlag New
-                                   York. ISBN 978-3-319-24277-4, ", tags$a(href="http://ggplot2.org", "http://ggplot2.org",style = "color:blue"))),
-                                   
-                                   h4(tags$div(tags$strong("mdsr"),":", "Baumer B, Horton N and Kaplan D (2016).", tags$i("devtools: mdsr: Complement to 'Modern Data Science with
-                                   R'."), "R package version 0.1.3, ", tags$a(href="https://CRAN.R-project.org/package=mdsr", "https://CRAN.R-project.org/package=mdsr",style = "color:blue"))),
-                                   
-                                   h4(tags$div(tags$strong("plotly"),":", "Sievert C, Parmer C, Hocking T, Chamberlain S, Ram K, Corvellec M and Despouy P (2017).", tags$i("plotly: Create Interactive Web Graphics via 'plotly.js'."), "
-                                   R package version 4.6.0, ", tags$a(href="https://CRAN.R-project.org/package=plotly", "https://CRAN.R-project.org/package=plotly",style = "color:blue"))),
-                                   
-                                   
-                                   h4(tags$div(tags$strong("shiny"),":", "Chang W, Cheng J, Allaire J, Xie Y and McPherson J (2017).", tags$i("shiny: Web Application
-                                                                                                                                              Framework for R."), " R package version 1.0.3, ", tags$a(href="https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny",style = "color:blue"))),
-                                   h4(tags$div(tags$strong("shinyBS"),":", "Bailey E (2015).", tags$i("shinyBS: Twitter Bootstrap Components for Shiny."),
-                                               " R package version 0.61, ", tags$a(href="https://CRAN.R-project.org/package=shinyBS", "https://CRAN.R-project.org/package=shinyBS",style = "color:blue"))),
-                                   h4(tags$div(tags$strong("shinydashboard"),":", "Chang W and Borges Ribeiro B (2017).", tags$i("shinydashboard: Create Dashboards with 'Shiny'."), 
-                                               " R package version 0.6.1, ", tags$a(href="https://CRAN.R-project.org/package=shinydashboard", "https://CRAN.R-project.org/package=shinydashboard",style = "color:blue")))
-                                   
+                                   h4(tags$div("This app was developed and coded by Jinglin Feng. Information
+                                               about SAT results by state for 2010 was drawn from 
+                    Baumer, B., Kaplan, D., & Horton, N. J. (2017).",tags$i("Modern data science with R."), "Special thanks to Chelsea Wang and Yuxin Zhang for help on some programming issues."))
                                  
                                   
                                     

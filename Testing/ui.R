@@ -67,7 +67,9 @@ dashboardPage(skin="black",
                                               textInput("obs",h4(tags$strong("Observed Counts")),
                                                         ""),
                                               br(), 
-                                   numericInput("sims",h4(tags$strong("Number of simulations from null model")),1,min=0,step=1),
+                                   
+                                  numericInput("sims",h4(tags$strong("Number of simulations from null model")),1,min=0,step=1),
+                                   bsPopover("sims", "", "If the number of simulations is greater than 5, an orange curve will show up.", placement = "right", options = list(container="body")),
                                    br(),
                                    actionButton("resample",h4(tags$div(tags$strong("Simulate Now"),style = "color:black"))),
                                    conditionalPanel(
@@ -118,14 +120,29 @@ dashboardPage(skin="black",
                                                    Comparsion to null distribution "), style = "color:white" )),
                                                           plotOutput("chisqCurve"),
                                                           br(),
+                                                          conditionalPanel(
+                                                            
+                                                            condition="input.sims <= 5",
+                                                            p(textOutput("remarksProb2")),
+                                                            tags$head(tags$style("#remarksProb2{color: #1C2C5B ;
+                                                                                 font-size: 18.5px;
+                                                                                 font-style: italic;
+                                                                                 }"
+                                                          ))),
                                                           
+                                                          conditionalPanel(
+                                                         
+                                                         condition="input.sims > 5",
                                                           p(textOutput("remarksProb")),
                                                           tags$head(tags$style("#remarksProb{color: #1C2C5B ;
                                                            font-size: 18.5px;
                                                            font-style: italic;
                                                             }"
-                                                          ))
-                                                 ),
+                                                          )))
+                                                          
+                                                          ))),
+                                                       
+                                                 
                                                  
                                                  id="myPanel"
                                      )
@@ -139,9 +156,7 @@ dashboardPage(skin="black",
                           )
                   )
                           
-                          )
-                  )
-              
+                   
 
 
 

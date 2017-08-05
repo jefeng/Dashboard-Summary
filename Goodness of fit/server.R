@@ -101,12 +101,13 @@ function(input, output) {
     ss= input$n3
     nn= input$n2
     d<-plotdata()$x
+    coordinatex<-v$click1$x
+    coordinatey<-v$click1$y
     if (ss<=50)
     {
-      plot(d$index,d$pp,xlab = "Simulation Number",
-           ylab = "P-value", main="P-value Distribution from the simulations", pch = 20,col="#1C2C5B", cex=2.5,font.lab=2 )
-      if (!is.null(v$click1$x))
-        points(x=round(v$click1$x),y=d$pp[round(v$click1$x)],col="#FF4500",pch = 20, cex=3)
+      plot(d$index,d$pp,pch = 20,col="#1C2C5B", cex=2.5,font.lab=2, xlab = "Simulation Number",ylab = "P-value")
+      if (!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)
+        points(x=round(coordinatex),y=d$pp[round(coordinatex)],col="#FF4500",pch = 20, cex=3)
       
     }
     else {
@@ -118,18 +119,20 @@ function(input, output) {
   # For Same
   
   output$plot2 <- renderPlot({
+    coordinatex<-v$click1$x
+    coordinatey<-v$click1$y
     ss= input$n3
     nn= input$n2
     d<-plotdata2()
     if (ss<=50)
     {
-      plot(d$index,d$pp,xlab = "Simulation Number",
-           ylab = "P-value", main="P-value Distribution from the simulations", pch = 20,col="#1C2C5B", cex=2.5,font.lab=2 )
-      if (!is.null(v$click1$x))
+      plot(d$index,d$pp,pch = 20,col="#1C2C5B", cex=2.5,font.lab=2, xlab = "Simulation Number",ylab = "P-value")
+      if (!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)
         points(x=round(v$click1$x),y=d$pp[round(v$click1$x)],col="#FF4500",pch = 20, cex=3)
       
     }
-    else {par(xpd=F)
+    else {
+      par(xpd=F)
       hist(d$pp,breaks=5,main="P-value Distribution from the simulations", xlab="P-value",font.lab=2 )
       abline(h = ss/5, col = "red")}
   })
@@ -139,13 +142,16 @@ function(input, output) {
   clickedpoints1<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    coordinatex<-v$click1$x
+    coordinatey<-v$click1$y
     ss= input$n3
     num_of_samples = input$n
     nn= input$n2
-    mytable<-firstdata()  
+    mytable<-firstdata() 
+    d<-plotdata()$x
     
     data<-plotdata()$x
-    if (is.null(v$click1)||ss>50)
+    if (!(!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)||ss>50)
       return()
     i<-round(v$click1$x)
     pvalue<-round(data$pp[round(v$click1$x)],3)
@@ -171,13 +177,16 @@ function(input, output) {
   clickedpoints2<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    coordinatex<-v$click1$x
+    coordinatey<-v$click1$y
     ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata2()  
+    d<-plotdata2()
     
     data<-plotdata2()
-    if (is.null(v$click1)||ss>50)
+    if (!(!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)||ss>50)
       return()
     i<-round(v$click1$x)
     pvalue<-round(data$pp[round(v$click1$x)],3)
@@ -197,13 +206,15 @@ function(input, output) {
   clickedpoints21<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    coordinatex<-v$click1$x
+    coordinatey<-v$click1$y
     ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata()  
-    
+    d<-plotdata()$x
     data<-plotdata()$x
-    if (is.null(v$click1)||ss>50)
+    if (!(!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)||ss>50)
       return()
     i<-round(v$click1$x)
     pvalue<-round(data$pp[round(v$click1$x)],3)
@@ -216,13 +227,15 @@ function(input, output) {
   clickedpoints22<- reactive({
     # For base graphics, I need to specify columns, though for ggplot2,
     # it's usually not necessary.
+    coordinatex<-v$click1$x
+    coordinatey<-v$click1$y
     ss= input$n3
     num_of_samples = input$n
     nn= input$n2
     mytable<-firstdata2()  
-    
+    d<-plotdata2()
     data<-plotdata2()
-    if (is.null(v$click1)||ss>50)
+    if (!(!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)||ss>50)
       return()
     i<-round(v$click1$x)
     pvalue<-round(data$pp[round(v$click1$x)],3)
@@ -302,4 +315,8 @@ function(input, output) {
     sliderValues2()},
     align="c"
   )
+  
+  output$hint <- renderText({
+    paste0("Scroll down to see the table associated with the point you just clicked")
+  })
 }

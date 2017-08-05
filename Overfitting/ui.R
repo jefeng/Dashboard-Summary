@@ -62,13 +62,7 @@ dashboardPage(skin="black",
                                   
                                   br(),
                                   h3("Acknowledgement and Credit:"),
-                                 h4(tags$div(tags$strong("shiny"),":", "Chang W, Cheng J, Allaire J, Xie Y and McPherson J (2017).", tags$i("shiny: Web Application
-                                                                                                                                             Framework for R."), " R package version 1.0.3, ", tags$a(href="https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny",style = "color:blue"))),
-                                  h4(tags$div(tags$strong("shinyBS"),":", "Bailey E (2015).", tags$i("shinyBS: Twitter Bootstrap Components for Shiny."),
-                                              " R package version 0.61, ", tags$a(href="https://CRAN.R-project.org/package=shinyBS", "https://CRAN.R-project.org/package=shinyBS",style = "color:blue"))),
-                                  h4(tags$div(tags$strong("shinydashboard"),":", "Chang W and Borges Ribeiro B (2017).", tags$i("shinydashboard: Create Dashboards with 'Shiny'."), 
-                                              " R package version 0.6.1, ", tags$a(href="https://CRAN.R-project.org/package=shinydashboard", "https://CRAN.R-project.org/package=shinydashboard",style = "color:blue")))
-                                  
+                                  h4("This app was developed and coded by Jinglin Feng")
                                    
                                    
                                    

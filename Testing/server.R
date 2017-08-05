@@ -45,7 +45,7 @@ shinyServer(function(input, output,session) {
   goodNulls <- reactive({
     nulls <- nullsInput()
     goodNulls <- TRUE
-    if (length(nulls) <= 1) goodNulls <- FALSE
+    if (length(nulls) < 1) goodNulls <- FALSE
     if (any(is.na(nulls))) goodNulls <- FALSE
     if (!any(is.na(nulls)) && any(nulls <= 0)) goodNulls <- FALSE
     if (!goodNulls) disable("resample")
@@ -64,7 +64,7 @@ shinyServer(function(input, output,session) {
   goodObs <- reactive({
     obs <- obsInput()
     goodObs <- TRUE
-    if (length(obs) <= 1) goodObs <- FALSE
+    if (length(obs) < 1) goodObs <- FALSE
     if (any(is.na(obs))) goodObs <- FALSE
     if (any(obs < 0)) goodObs <- FALSE
     if (!goodObs) disable("resample")
@@ -287,8 +287,8 @@ shinyServer(function(input, output,session) {
   
   chisqDensities <- reactive({
     input$resample
-    if (length(chisqSims)==1) band <- 1 else band <- "nrd0"
-    density(chisqSims,n=500,from=0,to=xmaxInput(),bw=band,adjust = 3)
+   if (length(chisqSims)==1) band <- 1 else band <- "nrd0"
+    density(chisqSims,n=500, from=0,to=xmaxInput(),bw=band)
   })
   
   
@@ -358,6 +358,13 @@ shinyServer(function(input, output,session) {
     obs <- obschisqInput()
     paste0("The orange curve approximates the true probability distribution of the chi-square statistic based on simulations.", 
            " The black curve shows the large sample chi-square density.",
+           " The shaded area gives the approximate probability of getting a chi-square statistic of ",
+           round(obs,2)," or more, if the probability of each outcome is under Null probabilities (i.e. the p-value ).")
+  })
+  
+  output$remarksProb2 <- renderText({
+    obs <- obschisqInput()
+    paste0(" The black curve is the large sample chi-square density.",
            " The shaded area gives the approximate probability of getting a chi-square statistic of ",
            round(obs,2)," or more, if the probability of each outcome is under Null probabilities (i.e. the p-value ).")
   })

@@ -13,6 +13,7 @@ chisqGraph <- function(bound,region="above",df=NA,xlab="chi_square_statistic",gr
       bound <- round(bound,2)
       upper <- max(qchisq(.999,df=df),bound+1)
       lower <- 0
+      
       curve(dchisq(x,df=df),from=lower,to=upper,ylab="density",axes=FALSE,n=501,xlab=xlab,
             main=paste("Chi-Square Curve, df = ",df,"\nShaded Area = ",round(area,4)))
       axis(1,at=c(lower,bound,upper),labels=c(as.character(0),as.character(bound),""))

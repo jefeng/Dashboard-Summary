@@ -62,22 +62,9 @@ dashboardPage(skin="black",
                                    br(),
                                
                                    h3("Acknowledgement and Credit:"),
-                                   h4(tags$div(tags$strong("ggplot2"),":", "Wickham H (2016).", tags$i("ggplot2: Elegant Graphics for Data Analysis."), "Springer-Verlag New
-                                   York. ISBN 978-3-319-24277-4, ", tags$a(href="http://ggplot2.org", "http://ggplot2.org",style = "color:blue"))),
-                                   h4(tags$div(tags$strong("shiny"),":", "Chang W, Cheng J, Allaire J, Xie Y and McPherson J (2017).", tags$i("shiny: Web Application
-                                   Framework for R."), " R package version 1.0.3, ", tags$a(href="https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny",style = "color:blue"))),
-                                   h4(tags$div(tags$strong("shinyBS"),":", "Bailey E (2015).", tags$i("shinyBS: Twitter Bootstrap Components for Shiny."),
-                                               " R package version 0.61, ", tags$a(href="https://CRAN.R-project.org/package=shinyBS", "https://CRAN.R-project.org/package=shinyBS",style = "color:blue"))),
-                                   h4(tags$div(tags$strong("shinydashboard"),":", "Chang W and Borges Ribeiro B (2017).", tags$i("shinydashboard: Create Dashboards with 'Shiny'."), 
-                                               " R package version 0.6.1, ", tags$a(href="https://CRAN.R-project.org/package=shinydashboard", "https://CRAN.R-project.org/package=shinydashboard",style = "color:blue"))),
-                                   h4(tags$div(tags$strong("shinyjs"),":", "Attali D (2016).", tags$i("shinyjs: Easily Improve the User Experience of Your Shiny Apps in
-                                   Seconds."), " R package version 0.9, ", tags$a(href="https://CRAN.R-project.org/package=shinyjs", "https://CRAN.R-project.org/package=shinyjs",style = "color:blue")))
+                                   h4("This app was developed and coded by Jinglin Feng. Special thanks to Alex Chen and Yuxin Zhang for help on some programming issues. ")
                                
                                
-                               
-                                 
-                                  
-                                    
                                     
                             )
                           )
@@ -116,18 +103,33 @@ dashboardPage(skin="black",
                                    
                                  
                                    h4(tags$div(a(href="http://shiny.science.psu.edu/jpf5265/Testing/", 
-                                              tags$strong("Click here if you have real data to test ",style = "color:#1C2C5B"))))),
+                                              tags$strong("Click here if you have real data to test ",style = "color:#1C2C5B")))),
+                                   
+                                   conditionalPanel(
+                                   
+                                   condition="input.n3 <= 50",
+                                   tags$img(src = "arrow.gif", width="15%", style="display: block; margin-left: 115px; margin-right: 4px;"),
+                                   
+                                   textOutput("hint"),
+                                   tags$head(tags$style("#hint{color: #1C2C5B ;
+                                                        font-size: 18px;
+                                                        
+                                                        
+                                                        }"
+                                                          )))
+                                   
+                                   ),
                           column(7,
                                  h3("Table and Plot:"),
                                  conditionalPanel(condition = "input.random == 'Equiprobable Null'",
-                                                   tableOutput("values2"),
+                                                  tableOutput("values2"),
                                                   bsPopover("values2","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
+                                                  plotOutput("plot2", width='90%', click = "plot_click"),
+                                                  bsPopover("plot2","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null ", place="right", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints"), 
                                                   bsPopover("plot_clickedpoints","","An example of a summary table of sample values", placement = "right", options = list(container = "body")),
-                                                  htmlOutput("text2", class="text-center"),
-                                                  br(),
-                                                  plotOutput("plot2", width='90%', click = "plot_click"),
-                                                  bsPopover("plot2","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null ", place="right", options = list(container = "body"))
+                                                  htmlOutput("text2", class="text-center")
+                                                  
                           )),
                           
                           column(7,
@@ -135,13 +137,13 @@ dashboardPage(skin="black",
                                  conditionalPanel(condition = "input.random == 'Different Null Probabilities'",
                                                   tableOutput("values1"),
                                                   bsPopover("values1","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
+                                                  plotOutput("plot1", width="90%", click = "plot_click"),
+                                                  bsPopover("plot1","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null )", place="right", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints2"), 
                                                   bsPopover("plot_clickedpoints2","","An example of a summary table of sample values", placement = "right", options = list(container = "body")),
-                                                  htmlOutput("text1", class="text-center"),
-                                                  br(),
-                                                  plotOutput("plot1", width="90%", click = "plot_click"),
-                                                  bsPopover("plot1","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null )", place="right", options = list(container = "body"))
-                                 
+                                                  htmlOutput("text1", class="text-center")
+                                                  
+                                                  
                                  )
                           
                           )
