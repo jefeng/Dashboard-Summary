@@ -2,6 +2,11 @@ library(shiny)
 
 shinyServer(function(input, output,session) {
   
+  observeEvent(input$start, {
+    
+    updateTabItems(session, "tabs", "first")
+  })
+  
   plotdata<-reactive({
     n=input$n
     p=input$p

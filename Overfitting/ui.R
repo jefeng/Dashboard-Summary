@@ -10,6 +10,7 @@ dashboardPage(skin="black",
               dashboardSidebar(
                 width = 235,
                 sidebarMenu(
+                  id = "tabs",
                   menuItem("Overview and Instruction", tabName = "over", icon = icon(" fa-hourglass-half")),
                   menuItem("App", tabName = "first", icon = icon("rss"))
                 )),
@@ -62,7 +63,9 @@ dashboardPage(skin="black",
                                   
                                   br(),
                                   h3("Acknowledgement and Credit:"),
-                                  h4("This app was developed and coded by Jinglin Feng")
+                                  h4("This app was developed and coded by Jinglin Feng"),
+                                  br(),
+                                  div(style = "text-align: center" ,bsButton("start", "Explore",icon("hand-o-right"), size = "large", style = "primary"))
                                    
                                    
                                    
@@ -103,7 +106,7 @@ tabItem(tabName = "first",
                  actionButton("plot", h5(tags$strong("Click to plot a new dataset"))), 
                  bsPopover("plot", "", "The density plot (in black) is the plot of residuals using the best picked X (The one that has the strongest correlation with Y). The scatterplot on the right shows the replationship between the best picked X and Y", place="right",options = list(container = "body")),
                  br(),
-                 
+                 br(),
                  conditionalPanel("input.plot != 0",
                  actionButton("validate", h5(tags$strong("Click here later to Validate"))))),
           bsPopover("validate", "", " Click to show density plot of residuals with a randomly picked X (in blue) ", place="right",options = list(container = "body")),

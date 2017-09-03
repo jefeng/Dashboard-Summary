@@ -5,8 +5,12 @@ library(shinyBS)
 library(mdsr)
 library(plotly)
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output,session) {
   
+  observeEvent(input$start, {
+    
+    updateTabItems(session, "tabs", "first")
+  })
   
   
   output$SAT1<-renderTable(
@@ -15,9 +19,7 @@ shinyServer(function(input, output) {
     
   )
   
-  
-  observeEvent(input$newplot2,{
-    
+
     output$plot2<-renderPlotly({
       
       SAT_2010_plot2<-SAT_2010[c(5,20,21,30,38,39,16,23,27,34,42,49),]%>%
@@ -70,10 +72,7 @@ shinyServer(function(input, output) {
     })
     
     
-    
-    
-  })
-  
+
   
   
 }

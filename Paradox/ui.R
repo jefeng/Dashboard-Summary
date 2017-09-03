@@ -16,6 +16,7 @@ dashboardPage(skin="black",
              
                 width = 235,
                 sidebarMenu(
+                  id = "tabs",
                   menuItem("Overview and Instruction", tabName = "over", icon = icon("superpowers")),
                   menuItem("App", tabName = "first", icon = icon("usb"))
                 )),
@@ -42,8 +43,7 @@ dashboardPage(skin="black",
                                       Simpson's paradox is a phenomenon in which a trend appears in different 
                                       groups of data but disappears or reverses when these groups are combined."
                                       ),
-                                   br(),
-                                       
+                                    
                                    h3("Background:"),
                                    h4(tags$div("This app examines SAT scores in 12 states and how they are related to 
                                                teachers' salaries in year 2010. The states are divided into 6 
@@ -73,7 +73,7 @@ dashboardPage(skin="black",
                                               
                                       
                                                ),
-                                   br(),
+                                   
                                    
                                    h3("Instructions for use:"),
                                    
@@ -81,6 +81,7 @@ dashboardPage(skin="black",
                                    h4("2. Move the slider to see how making the participation rates more equal lessen
                                       the paradox effect"),
                                    br(),
+                                   div(style = "text-align: center" ,bsButton("start", "Explore", icon("hand-o-right"),size = "large", style = "primary")),
                                    
                                    h3("Acknowledgement and Credit:"),
                                   
@@ -97,36 +98,30 @@ dashboardPage(skin="black",
                   
                   #Define the content contained within part 1 ie. tabname "first"
                   tabItem(tabName = "first",
+                     
                           fluidRow(
-                            
-                            
-                            
-                            
-                          column(6,
+                              
+                              column(6,
                                  h3("Plot:"),
-                                 column(2, offset=1, actionButton("newplot2", h5(tags$strong("Click here first to show the plot")))),
-                                 bsPopover("newplot2", "", "This plot shows you the original (actual) paradox effect", place="right",options = list(container = "body")),
+                                 
                                  tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
                                  br(),
-                                 br(),
-                                 br(),
-                                 sliderInput("integer", label = div(style='width:440px;', 
+                                 div(style = "position:relative;right:-6em;",
+                                 sliderInput("integer", label = div(style='width:216%;', 
                                                                             div(style='float:left; width:50%', 'No Paradox Effect'), 
-                                                                            div(style='float:right;width:50%', 'Actual Paradox Effect')), 
-                                                                min = 0, max = 1, value = 1, width = '360px'),
+                                                                           div(style='float:right;width:50%', 'Actual Paradox Effect')), 
+                                                                min = 0, max = 1, value = 1, width = '394px')),
                                  bsPopover("integer", "", "Move the slider to see how the Simpson Paradox effect changes. Default as actual paradox effect, which is the true SAT participation rates in the dataset. No paradox effect is the case that when all states have equal SAT participation rates", place="right", options = list(container = "body")),
                           
-                                 
-                          
-                          conditionalPanel("input.newplot2 != 0",
-                                                  plotlyOutput("plot2"),
-                                           bsPopover("plot2", "", "Hover over the point to see more details", placement = "right"),
-                                           img(src="jinglin.jpg", width="80%")
-                                           )
+                                 plotlyOutput("plot2"),
+                                 bsPopover("plot2", "", "Hover over the point to see more details", placement = "right"),
+                                 img(src="jinglin.jpg", width="80%")
+                                           
                           
                                 
                             ),
-                          column(4,offset=1,
+                          
+                          column(4,offset = 1,
                                  h3("Introduction:"),
                                  box(width ="10.5%",background = "navy",
                                      "This dataset is about the SAT results by state in 2010. There 
@@ -154,12 +149,11 @@ dashboardPage(skin="black",
                                  
                                  )
                           
-                          )
                   )
               )
 )
 )
-
+)
 
                
             

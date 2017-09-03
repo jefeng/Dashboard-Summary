@@ -1,6 +1,11 @@
 library(shiny)
 library(ggplot2)
-function(input, output) {
+shinyServer(function(input, output,session) {
+  
+  observeEvent(input$start, {
+  
+    updateTabItems(session, "tabs", "first")
+  })
   
   #For Random
   firstdata<-reactive({
@@ -105,9 +110,9 @@ function(input, output) {
     coordinatey<-v$click1$y
     if (ss<=50)
     {
-      plot(d$index,d$pp,pch = 20,col="#1C2C5B", cex=2.5,font.lab=2, xlab = "Simulation Number",ylab = "P-value")
+      plot(d$index,d$pp,pch = 20,col="#1C2C5B", cex=1.5,font.lab=2, xlab = "Simulation Number",ylab = "P-value")
       if (!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)
-        points(x=round(coordinatex),y=d$pp[round(coordinatex)],col="#FF4500",pch = 20, cex=3)
+        points(x=round(coordinatex),y=d$pp[round(coordinatex)],col="#FF4500",pch = 20, cex=2.5)
       
     }
     else {
@@ -126,9 +131,9 @@ function(input, output) {
     d<-plotdata2()
     if (ss<=50)
     {
-      plot(d$index,d$pp,pch = 20,col="#1C2C5B", cex=2.5,font.lab=2, xlab = "Simulation Number",ylab = "P-value")
+      plot(d$index,d$pp,pch = 20,col="#1C2C5B", cex=1.5,font.lab=2, xlab = "Simulation Number",ylab = "P-value")
       if (!is.null(v$click1$x)&&abs(coordinatex-round(coordinatex))<0.1&&abs(coordinatey-d$pp[round(coordinatex)])<0.01)
-        points(x=round(v$click1$x),y=d$pp[round(v$click1$x)],col="#FF4500",pch = 20, cex=3)
+        points(x=round(v$click1$x),y=d$pp[round(v$click1$x)],col="#FF4500",pch = 20, cex=2.5)
       
     }
     else {
@@ -319,4 +324,4 @@ function(input, output) {
   output$hint <- renderText({
     paste0("Scroll down to see the table associated with the point you just clicked")
   })
-}
+})

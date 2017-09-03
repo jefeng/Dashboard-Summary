@@ -11,6 +11,7 @@ dashboardPage(skin="black",
               dashboardSidebar(
                 width = 221,
                 sidebarMenu(
+                  id = "tabs",
                   menuItem("Overview and Instruction", tabName = "over", icon = icon("github")),
                   menuItem("App", tabName = "first", icon = icon("volume-up"))
                 )),
@@ -47,7 +48,7 @@ dashboardPage(skin="black",
                                                values are not close and the model is a poor fit to the data. "
                                       
                                                )),
-                                   br(),
+                                   
                                    
                                    h3("Instructions for use:"),
                                    h4("1. Select one of the scenarios in terms of proportion in each category"),
@@ -60,6 +61,8 @@ dashboardPage(skin="black",
                                    h4("5. When there are more than 50 simulations, only a histogram of p-values is shown"),
                                     
                                    br(),
+                                   div(style = "text-align: center" ,bsButton("start", "Explore", icon("hand-o-right"), size = "large", style = "primary")),
+                               
                                
                                    h3("Acknowledgement and Credit:"),
                                    h4("This app was developed and coded by Jinglin Feng. Special thanks to Alex Chen and Yuxin Zhang for help on some programming issues. ")
@@ -103,7 +106,7 @@ dashboardPage(skin="black",
                                    
                                  
                                    h4(tags$div(a(href="http://shiny.science.psu.edu/jpf5265/Testing/", 
-                                              tags$strong("Click here if you have real data to test ",style = "color:#1C2C5B")))),
+                                              tags$strong(tags$u("Click here if you have real data to test ",style = "color:#1C2C5B"))))),
                                    
                                    conditionalPanel(
                                    
@@ -116,14 +119,20 @@ dashboardPage(skin="black",
                                                         
                                                         
                                                         }"
-                                                          )))
+                                                          ))
+                                   )
                                    
                                    ),
-                          column(7,
+                          
                                  h3("Table and Plot:"),
+                                 column(7,align="center",
+                                        
                                  conditionalPanel(condition = "input.random == 'Equiprobable Null'",
                                                   tableOutput("values2"),
-                                                  bsPopover("values2","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
+                                                  bsPopover("values2","","An example of a summary table of population values", placement = "bottom", options = list(container = "body")))),
+                                column(7,
+                                       
+                                       conditionalPanel(condition = "input.random == 'Equiprobable Null'",             
                                                   plotOutput("plot2", width='90%', click = "plot_click"),
                                                   bsPopover("plot2","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null ", place="right", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints"), 
@@ -132,12 +141,16 @@ dashboardPage(skin="black",
                                                   
                           )),
                           
-                          column(7,
+                          column(7,align="center",
                                  
                                  conditionalPanel(condition = "input.random == 'Different Null Probabilities'",
                                                   tableOutput("values1"),
-                                                  bsPopover("values1","","An example of a summary table of population values", placement = "top", options = list(container = "body")),
-                                                  plotOutput("plot1", width="90%", click = "plot_click"),
+                                                  bsPopover("values1","","An example of a summary table of population values", placement = "bottom", options = list(container = "body")))),
+                                
+                                column(7,
+                                        conditionalPanel(condition = "input.random == 'Different Null Probabilities'",
+                          
+                                          plotOutput("plot1", width="90%", click = "plot_click"),
                                                   bsPopover("plot1","","For the number of simulations less than or equal to 50, click a point on the scatterplot to see the table behind it; For the number of simulations greater than 50, you will see a histogram of p-values. The red line denotes the uniform density of p-values under the null )", place="right", options = list(container = "body")),
                                                   tableOutput("plot_clickedpoints2"), 
                                                   bsPopover("plot_clickedpoints2","","An example of a summary table of sample values", placement = "right", options = list(container = "body")),
