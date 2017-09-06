@@ -57,7 +57,7 @@ dashboardPage(skin="black",
                                                tags$strong("then"), "click the ",
                                                tags$strong("validate button"))),
                                    
-                                   h4(tags$div("3. If you want to generate a new plot with the same slider values, just click ",
+                                   h4(tags$div("3. If you want to generate a new plot with the same slider values, just click the",
                                                tags$strong("plot button"),
                                                "again")),
                                   
@@ -118,7 +118,7 @@ tabItem(tabName = "first",
                              cellArgs = list(style = "padding: 6px"),
                              plotOutput("plott"),
                              plotOutput("scatter"),
-                             bsPopover("plott", "","Black curve stays constant when you validate with a new X, but scale might change to fit two curves perfectly ", place="bottom",options = list(container = "body"))
+                             bsPopover("plott", "","Black curve stays constant when you validate with a new X, but scale might change to fit two curves perfectly. (Density estimate may be unstable for small sample sizes) ", place="bottom",options = list(container = "body"))
                  )
                  
           ),

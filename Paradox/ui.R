@@ -105,7 +105,7 @@ dashboardPage(skin="black",
                                  h3("Plot:"),
                                  
                                  tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
-                                 br(),
+                                 
                                  div(style = "position:relative;right:-6em;",
                                  sliderInput("integer", label = div(style='width:216%;', 
                                                                             div(style='float:left; width:50%', 'No Paradox Effect'), 
@@ -115,7 +115,11 @@ dashboardPage(skin="black",
                           
                                  plotlyOutput("plot2"),
                                  bsPopover("plot2", "", "Hover over the point to see more details", placement = "right"),
-                                 img(src="jinglin.jpg", width="80%")
+                                 img(src="jinglin.jpg", width="70%"),
+                                 
+                                 h3("Challenge:"),
+                                 h4("How does the slope of the overall regression line change
+                                    as the SAT participation rate become more similar from State to State?")
                                            
                           
                                 
@@ -127,13 +131,13 @@ dashboardPage(skin="black",
                                      "This dataset is about the SAT results by state in 2010. There 
                                      are 12 selected states with different average teachers' salaries, SAT 
                                      scores and SAT participation rates. The variable 'salary' is 
-                                     the average teachers' salaries in US dollar ; The variable 'total' 
+                                     the average teachers' salaries in US dollars ; The variable 'total' 
                                      is the state average SAT score ; The variable 'sat pct' is 
-                                     the percent of students taking SAT in that state."),
+                                     the percent of students taking the SAT in that state."),
                                  
                                  #tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
-                                 img(src="table.jpg", width = "306px", height = "400px"),
-                                 
+                                 img(src="table.jpg", width = "306px", height = "400px", style="display: block; margin-left: auto; margin-right: auto;"),
+                                 br(),
                                  h4(tags$div(
                                    tags$strong("Low Group"),
                                    ": States have SAT Participation Rate", 
