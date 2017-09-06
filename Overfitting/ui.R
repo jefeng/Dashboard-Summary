@@ -90,7 +90,7 @@ tabItem(tabName = "first",
                  tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #1C2C5B}")),
                  tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: #1C2C5B}")),
                  
-                 sliderInput("n", "Sample Size:", min = 1, max = 1000, value = 5 ,
+                 sliderInput("n", "Sample Size:", min = 2, max = 1000, value = 5 ,
                              step = 1),
                  bsPopover("n", "", "Number of Observations", place="right",options = list(container = "body")),
                  
