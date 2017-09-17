@@ -54,6 +54,22 @@ shinyServer(function(input, output,session) {
     data
   })
   
+  bluedata<-reactive({
+    n=input$n
+    k=input$k
+    mydata<-plotdata()
+    y1blue<-bluey()
+    R2<-unlist(mydata[1])
+    y2<-unlist(mydata[2])
+    xmatblue<-array(unlist(mydata[3]),dim=c(n,k))
+    
+    kk2=sample(1:k, 1, replace=TRUE)
+    mm2blue<-lm(y1blue~xmatblue[,kk2]) # Randomly Chosen X
+    
+    data<-list(xmatblue,kk2,y1blue,mm2blue)
+    data
+  })
+  
   bluey<-reactive({
     n=input$n
     if(input$validate>0)
@@ -93,13 +109,14 @@ shinyServer(function(input, output,session) {
     y1blue<-bluey()
     kkblue=which.max(abs(R2))
     xmatblue=array(unlist(mydata[3]),dim=c(n,k)) 
-    mm2blue<-lm(y2~xmatblue[, sample(1:k, 1, replace=TRUE)]) # Randomly Chosen X
-    d1<-density(y2-mm2blue$fitted.values, adjust=2) # Randomly Chosen X)
+    mm2blue<-lm(y1blue~xmatblue[, sample(1:k, 1, replace=FALSE)]) # Randomly Chosen X
+    d1<-density(y1blue-mm2blue$fitted.values) # Randomly Chosen X)
     plot(range(d1$x,d2$x), range(d1$y,d2$y), type = "n", xlab = "Residual",
          ylab = "Density", main="",font.lab=2)
     lines(d2, col="black",lwd=2)
     lines(d1, col="blue",lwd=2)
   })
+  
   
   scatterplot<-renderPlot({
     n=input$n
@@ -111,17 +128,33 @@ shinyServer(function(input, output,session) {
     
     kk=which.max(abs(R2))
     mm<-lm(y2~xmat[,kk]) # Best Chosen X
-    plot(xmat[,kk], y2, xlab="Best Chosen X", ylab="Y",font.lab=2)
+    
+    plot(xmat[,kk], y2, xlab="Best Chosen X", ylab="Y",font.lab=2, cex=1.5)
     abline(mm,col="red")
   })
   
+  scatterplot2<-renderPlot({
+    n=input$n
+    k=input$k
+    mydata<-bluedata()
+    xmatblue<-array(unlist(mydata[1]),dim=c(n,k))
+    kk2<-unlist(mydata[2])
+    y1blue<-unlist(mydata[3])
+    mm2blue<-lm(y1blue~xmatblue[,kk2])
+    plot(xmatblue[,kk2], y1blue, xlab="Validation set X", ylab="Y",font.lab=2, col="blue",cex=1.5)
+    abline(mm2blue,col="red")
+  })
   
   observeEvent(input$plot,output$plott<-plot2)
   observeEvent(input$plot,output$scatter<-scatterplot)
   observeEvent(input$plot,output$choose<-value1)
+  observeEvent(input$plot,output$scatter2<-renderPlot({NULL}))
+  
   
   observeEvent(input$validate,output$plott<-plot1)
   observeEvent(input$validate,output$choose<-value2)
+  observeEvent(input$validate,output$scatter2<-scatterplot2)
+  
   
   value11<-reactive({
     n=input$n
@@ -144,16 +177,14 @@ shinyServer(function(input, output,session) {
     n=input$n
     k=input$k
     best<-value11()
-    mydata<-plotdata()
-    y2<-unlist(mydata[2])
-    R2<-unlist(mydata[1])
-    kkblue<-which.max(abs(R2))
-    xmatblue=array(unlist(mydata[3]),dim=c(n,k))
-    y1blue<-bluey()
-    random<-cor(y2,xmatblue[, sample(1:k, 1, replace=TRUE)])
+    mydata<-bluedata()
+    xmatblue<-array(unlist(mydata[1]),dim=c(n,k))
+    kk2<-unlist(mydata[2])
+    y1blue<-unlist(mydata[3])
+    random<-cor(y1blue,xmatblue[,kk2])
     xx=cbind(best,random)
     xx=as.data.frame(xx)
-    colnames(xx)=c("Sample Best Correlation","Sample Randomly Chosen Correlation")
+    colnames(xx)=c("Sample Best Correlation","Sample Validation Set Correlation")
     xx
   })
   value2<-renderTable({

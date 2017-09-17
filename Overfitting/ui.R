@@ -62,11 +62,12 @@ dashboardPage(skin="black",
                                                "again")),
                                   
                                   br(),
-                                  h3("Acknowledgement and Credit:"),
-                                  h4("This app was developed and coded by Jinglin Feng"),
-                                  br(),
-                                  div(style = "text-align: center" ,bsButton("start", "Explore",icon("hand-o-right"), size = "large", style = "primary"))
+                                  div(style = "text-align: center" ,bsButton("start", "Explore",icon("hand-o-right"), size = "large", style = "primary")),
                                    
+                                  h3("Acknowledgement and Credit:"),
+                                  h4("This app was developed and coded by Jinglin Feng. Special thanks to Alex Chen for being my partner in this project.")
+                                  
+                                  
                                    
                                    
                                    )
@@ -82,15 +83,19 @@ tabItem(tabName = "first",
           column(4,
                  h3("Introduction:"),
                  box(width ="10.5%",background = "navy",
-                     "In the app you will calculate sample correlations (r) of all 
-                     X variables with Y variable and pick out the X that has the highest r with Y.
-                     You can then compare this r value with the r value associated with a randomly chosen X variable."),
+                     "A researcher is about to look at many explanatory 
+                     variables and pick the one X that predicts Y the best. 
+                     The sliders below allow you to set the number of explanatory 
+                     variables, the sample size, and the population correlation between the 
+                     explanatory variables and the response variable. Later, the 
+                     researcher will run a validation study with new, independent
+                     observations for X."),
                  
                  tags$style(HTML(".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {background: #1C2C5B}")),
                  tags$style(HTML(".js-irs-1 .irs-single, .js-irs-1 .irs-bar-edge, .js-irs-1 .irs-bar {background: #1C2C5B}")),
                  tags$style(HTML(".js-irs-2 .irs-single, .js-irs-2 .irs-bar-edge, .js-irs-2 .irs-bar {background: #1C2C5B}")),
                  
-                 sliderInput("n", "Sample Size:", min = 2, max = 1000, value = 5 ,
+                 sliderInput("n", "Sample Size:", min = 2, max = 50, value = 5 ,
                              step = 1),
                  bsPopover("n", "", "Number of Observations", place="right",options = list(container = "body")),
                  
@@ -109,34 +114,35 @@ tabItem(tabName = "first",
                  br(),
                  conditionalPanel("input.plot != 0",
                  actionButton("validate", h5(tags$strong("Click here later to Validate"))))),
-          bsPopover("validate", "", " Click to show density plot of residuals with a randomly picked X (in blue) ", place="right",options = list(container = "body")),
+          bsPopover("validate", "", "Click to show a density plot for residuals and scatterplot of Y versus the new X data used to validate the relationship.", place="right",options = list(container = "body")),
           
-          column(8,
+         
+          column(4,
                  h3("Plot:"),
-                 splitLayout(style="border: 1px solid sliver;",
-                             cellWidths = c("50%", "50%"),
-                             cellArgs = list(style = "padding: 6px"),
-                             plotOutput("plott"),
-                             plotOutput("scatter"),
-                             bsPopover("plott", "","Black curve stays constant when you validate with a new X, but scale might change to fit two curves perfectly. (Density estimate may be unstable for small sample sizes) ", place="bottom",options = list(container = "body"))
-                 )
                  
-          ),
-          column(7, offset=1, tableOutput("choose"),
-                 bsPopover("choose", "", "Compared the sample best correlation and randomly chosen correlation (In absolute value terms)", place="bottom",options = list(container = "body")),
-          
-          
-          conditionalPanel("input.validate != 0",
-          
-          h3("Challenge:"),
-          
-          
-          h4("How does the overfitting effect depend on 
-               sample sizes, true population correlation and 
-             the number of variables you are choosing from ?")
-          
-          )
-          
+                 plotOutput("plott",height=420),
+                 bsPopover("plott", "","Density plot for residuals in predicting Y from the best X (black curve) and from a validation set of independently drawn X data (blue curve). The black curve stays constant when you validate with new X data but scale might change to fit two curves perfectly. (Density estimate may be unstable for small sample sizes) ", place="bottom",options = list(container = "body")),
+                 tableOutput("choose"),
+                 bsPopover("choose", "", "Compare the sample best Correlation to the validation set correlation (in absolute terms). ", place="bottom",options = list(container = "body")),
+                 
+                 conditionalPanel("input.validate != 0",
+                                  
+                                  
+                                  h3("Challenge:"),
+                                  
+                                  
+                                  h4("How does the overfitting effect depend on 
+                                     sample sizes, true population correlation and 
+                                     the number of variables you are choosing from ?")
+                                  
+                                  )),
+           
+          column(4,     
+              plotOutput("scatter", height=360),
+              plotOutput("scatter2",height = 360)
+                 
+                 )
+            
           
           )
           
@@ -145,6 +151,8 @@ tabItem(tabName = "first",
           )
         )
                 )
-              )
-                  )
+)
+
+              
+                  
 
