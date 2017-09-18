@@ -104,27 +104,35 @@ tabItem(tabName = "first",
                  
                  bsPopover("p", "", "Move the slider to change true population correlation", place="right",options = list(container = "body")),
                  
-                 sliderInput("k", "The Number of Variables:", min = 1, max = 100 , value = 3 ,
+                 sliderInput("k", "The Number of Variables:", min = 1, max = 100 , value = 100 ,
                              step = 1),
                  bsPopover("k", "", "Move the slider to change the number of explanatory variables you are choosing from", place="right",options = list(container = "body")),
                  
                  actionButton("plot", h5(tags$strong("Click to plot a new dataset"))), 
-                 bsPopover("plot", "", "The density plot (in black) is the plot of residuals using the best picked X (The one that has the strongest correlation with Y). The scatterplot on the right shows the replationship between the best picked X and Y", place="right",options = list(container = "body")),
+                 bsPopover("plot", "", "The scatterplot on the left shows the relationship between the best picked X and Y.  The box plot on the right summarizes the distribution of the residuals when you predict Y from the best picked X.", place="right",options = list(container = "body")),
                  br(),
                  br(),
                  conditionalPanel("input.plot != 0",
                  actionButton("validate", h5(tags$strong("Click here later to Validate"))))),
-          bsPopover("validate", "", "Click to show a density plot for residuals and scatterplot of Y versus the new X data used to validate the relationship.", place="right",options = list(container = "body")),
+          bsPopover("validate", "", "Click to show a scatterplot of Y versus X for the new data used to validate the relationship and a box plot of the distribution of residuals from a validation experiment with new observations of X and Y.", place="right",options = list(container = "body")),
           
-         
-          column(4,
-                 h3("Plot:"),
-                 
-                 plotOutput("plott",height=420),
-                 bsPopover("plott", "","Density plot for residuals in predicting Y from the best X (black curve) and from a validation set of independently drawn X data (blue curve). The black curve stays constant when you validate with new X data but scale might change to fit two curves perfectly. (Density estimate may be unstable for small sample sizes) ", place="bottom",options = list(container = "body")),
+          h3("Plot:"),
+          column(4,   
+                 align="center",
+                 plotOutput("scatter", height=360),
                  tableOutput("choose"),
                  bsPopover("choose", "", "Compare the sample best Correlation to the validation set correlation (in absolute terms). ", place="bottom",options = list(container = "body")),
+                 plotOutput("scatter2",height = 360)
                  
+          ),
+         
+          column(4,
+                 br(),
+                 br(),
+                 br(),
+                 plotOutput("plott",height=450),
+                 
+                 br(),
                  conditionalPanel("input.validate != 0",
                                   
                                   
@@ -135,14 +143,8 @@ tabItem(tabName = "first",
                                      sample sizes, true population correlation and 
                                      the number of variables you are choosing from ?")
                                   
-                                  )),
+                                  ))
            
-          column(4,     
-              plotOutput("scatter", height=360),
-              plotOutput("scatter2",height = 360)
-                 
-                 )
-            
           
           )
           
