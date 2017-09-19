@@ -115,7 +115,7 @@ shinyServer(function(input, output,session) {
     d1<-density(y1blue-mm2blue$fitted.values) # Randomly Chosen X)
     plot(range(d1$x,d2$x), range(d1$y,d2$y), type = "n", xlab = "Residual",
          ylab = "Density", main="",font.lab=2)
-    groups <- c("Best Chosen X", "Validation Data Set") 
+    groups <- c("Best\nChosen X", "Validation\nData Set") 
     boxplot(y2-mm$fitted.values,y1blue-mm2blue$fitted.values, 
             names=groups, ylab="Residuals",ylim = c(-4, 4),font.lab=2,border=c("black", "blue"))
     #lines(d2, col="black",lwd=2)

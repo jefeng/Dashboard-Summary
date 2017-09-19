@@ -130,7 +130,7 @@ tabItem(tabName = "first",
                  br(),
                  br(),
                  br(),
-                 plotOutput("plott",height=450),
+                 plotOutput("plott"),
                  
                  br(),
                  conditionalPanel("input.validate != 0",
